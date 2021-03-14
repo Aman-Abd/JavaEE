@@ -24,7 +24,7 @@ public class LogInFilter implements Filter{
         }else
         {
             out.print("you haven't access (Filter)<br>");
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("Index.jsp");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
             requestDispatcher.include(req,resp);
         }
 

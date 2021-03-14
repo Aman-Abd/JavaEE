@@ -1,4 +1,6 @@
-import javax.servlet.RequestDispatcher;
+import Logics.Restaurant;
+import Logics.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -21,21 +23,27 @@ public class LogInServlet extends HttpServlet {
         String uname = req.getParameter("uname");
         String password = req.getParameter("password");
 
-        if(uname!=null)
-            out.print("Hello (Hidden Form)"+uname + "<br>");
+//        if(uname!=null)
+//            out.print("Hello (Hidden Form)"+uname + "<br>");
+        Restaurant restaurant = Restaurant.getRestaurant();
+        for(User user : restaurant.getUsers()){
+            if(user.getName().equalsIgnoreCase(name)){
+                if(password.equals(user.getPassword())){
+//                    out.print("You are successfully logged in!");
+//                    out.print("<br>Welcome, "+name);
 
-        if(password.equals("123")){
-            out.print("You are successfully logged in!");
-            out.print("<br>Welcome, "+name);
+                    Cookie ck=new Cookie("name", name);
+                    resp.addCookie(ck);
 
-            Cookie ck=new Cookie("name",name);
-            resp.addCookie(ck);
-
-            HttpSession session=req.getSession();
-            session.setAttribute("name",name);
-        }else{
-            out.print("sorry, username or password error!");
-            req.getRequestDispatcher("login.html").include(req, resp);
+                    HttpSession session=req.getSession();
+                    session.setAttribute("name",name);
+                }else{
+//                    out.print("sorry, password error!");
+                    req.getRequestDispatcher("login.html").include(req, resp);
+                }
+            }else {
+                out.print("User not found");
+            }
         }
 
         out.close();

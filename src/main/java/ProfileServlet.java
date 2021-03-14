@@ -18,18 +18,18 @@ public class ProfileServlet extends HttpServlet {
         req.getRequestDispatcher("link.jsp").include(req, resp);
 
         Cookie[] ck = req.getCookies();
-        if(ck!=null){
-            String name = ck[0].getValue();
-            if( !name.equals("") || name!=null ){
-                out.print("Welcome, "+name +" (Cookie) <br>");
-            }
-        }else{
-            out.print("Please login first");
-            req.getRequestDispatcher("login.html").include(req, resp);
-        }
+//        if(ck!=null){
+//            String name = ck[ck.length-1].getValue();
+//            if(!name.equals("") || name!=null){
+////                out.print("Welcome, "+name +" (Cookie) <br>" + ck.length   + "<br>");
+//            }
+//        }else{
+//            out.print("Please login first");
+//            req.getRequestDispatcher("login.html").include(req, resp);
+//        }
 
-        HttpSession session=req.getSession(false);
-        if(session!=null){
+        HttpSession session=req.getSession();
+        if(session.getAttribute("name")!=null){
             String name=(String)session.getAttribute("name");
 
             out.print("Welcome "+name+"(HTTP Session)");
