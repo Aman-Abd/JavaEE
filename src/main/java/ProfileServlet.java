@@ -1,3 +1,7 @@
+import Logics.Dish;
+import Logics.Restaurant;
+import Logics.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -31,12 +35,19 @@ public class ProfileServlet extends HttpServlet {
         HttpSession session=req.getSession();
         if(session.getAttribute("name")!=null){
             String name=(String)session.getAttribute("name");
-
-            out.print("Welcome "+name+"(HTTP Session)");
+            for(User user : Restaurant.getRestaurant().getUsers()) {
+                if (user.getName().equalsIgnoreCase(name)) {
+                    out.print("Welcome "+ user.getName() + " " + user.getLastname() + "<br>" +
+                            "" + user.getMoney() + "<br>");
+                    for (Dish userDishes : user.getDishes()){
+                        out.print(userDishes.getName() + "<br> ");
+                    }
+                }
+            }
         }
         else{
             out.print("Please login first");
-            req.getRequestDispatcher("login.html").include(req, resp);
+            req.getRequestDispatcher("login.jsp").include(req, resp);
         }
         out.close();
     }

@@ -22,9 +22,22 @@
         <div class = "foodMenu">
             <%@ page import="Logics.Restaurant" %>
             <%@ page import="Logics.Dish" %>
+            <%@ page import="java.util.ArrayList" %>
+            <%@ page import="java.util.List" %>
             <%
+                List<Dish> dishes = Restaurant.getRestaurant().getDishes();
+//                dishes.add(new Dish("Dish1",1000));
+//                dishes.add(new Dish("Dish2",2000));
+//                dishes.add(new Dish("Dish3",3000));
+//                dishes.add(new Dish("Dish4",4000));
+//                dishes.add(new Dish("Dish5",5000));
+//                dishes.add(new Dish("Dish6",6000));
+//                dishes.add(new Dish("Dish7",7000));
+//                dishes.add(new Dish("Dish8",8000));
+//                dishes.add(new Dish("Dish9",9000));
                 Restaurant restaurant = Restaurant.getRestaurant();
-                for(Dish dish : restaurant.getDishes()) {
+                restaurant.setDishes(dishes);
+                for(Dish dish : dishes) {
                     out.print("<div class=\"dish\">\n" +
                             "       <form action=\"purchase\" method=\"post\">" +
                             "            <input type=\"hidden\" name=\"dishName\" value='"+dish.getName()+"'>" +
@@ -40,7 +53,9 @@
                 }
             %>
         </div>
+        <jsp:include page="registration.jsp"/>
     </div>
+
 
 
 </main>

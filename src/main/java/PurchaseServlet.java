@@ -38,9 +38,9 @@ public class PurchaseServlet extends HttpServlet {
                         if(user.getName().equalsIgnoreCase(name)){
                             user.setMoney(user.getMoney() - dish.getPrice());
                             user.getDishes().add(dish);
-                            out.println("You have " + user.getMoney());
+                            out.println("You have " + user.getMoney() + "<br>");
                             for (Dish userDishes : user.getDishes()){
-                                out.print(userDishes.getName() + " ");
+                                out.print(userDishes.getName() + "<br> ");
                             }
                         }
                     }

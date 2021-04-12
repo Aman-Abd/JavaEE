@@ -1,11 +1,27 @@
 package Logics;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant {
     private List<User> users = new ArrayList<>();
-    private List<Dish> dishes = createBaseMenu();
+    private List<Dish> dishes = new ArrayList<>();
+    private static JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+
+    public static DataSource dataSource(){
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/Media");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("512HzFe935Aman");
+        return dataSource;
+    }
 
     private static Restaurant restaurant;
     private Restaurant(){}
@@ -17,19 +33,6 @@ public class Restaurant {
         return restaurant;
     }
 
-    private ArrayList<Dish> createBaseMenu(){
-        ArrayList<Dish> dishes = new ArrayList<>();
-        dishes.add(new Dish("Dish1",1000));
-        dishes.add(new Dish("Dish2",2000));
-        dishes.add(new Dish("Dish3",3000));
-        dishes.add(new Dish("Dish4",4000));
-        dishes.add(new Dish("Dish5",5000));
-        dishes.add(new Dish("Dish6",6000));
-        dishes.add(new Dish("Dish7",7000));
-        dishes.add(new Dish("Dish8",8000));
-        dishes.add(new Dish("Dish9",9000));
-        return dishes;
-    }
 
     public void addUser (User user){
         users.add(user);
@@ -40,6 +43,7 @@ public class Restaurant {
     }
 
     public List<User> getUsers() {
+
         return users;
     }
 
@@ -48,7 +52,7 @@ public class Restaurant {
     }
 
     public List<Dish> getDishes() {
-        return dishes;
+        return jdbcTemplate.query("SELECT * FROM Dish", new DishMaper());
     }
 
     public void setDishes(List<Dish> dishes) {
