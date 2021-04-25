@@ -1,21 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Index</title>
-    <link rel="stylesheet" type="text/css" href="resources/style/style.css">
-</head>
-<body>
-
-<header>
-    <ul>
-        <li><a href="index.jsp">Index</a></li>
-        <li><a href="profile">Profile</a></li>
-        <li><a href="login.jsp">Login</a></li>
-        <li><a href="logout">Logout</a></li>
-        <li><a href="registration.jsp">Registration </a></li>
-    </ul>
-</header>
-
+<jsp:include page="link.jsp"/>
 <main>
 
     <div class="container">
@@ -24,8 +9,15 @@
             <%@ page import="Logics.Dish" %>
             <%@ page import="java.util.ArrayList" %>
             <%@ page import="java.util.List" %>
+
+            <%--   Show Dishes   --%>
+
+            <form action="index" method="get">
+                <input type="hidden" name="name" value="value">
+                <input type="submit" value="Show Dishes">
+            </form>
             <%
-                List<Dish> dishes = Restaurant.getRestaurant().getDishes();
+                List<Dish> dishes =  Restaurant.getRestaurant().getDishes();
 //                dishes.add(new Dish("Dish1",1000));
 //                dishes.add(new Dish("Dish2",2000));
 //                dishes.add(new Dish("Dish3",3000));
@@ -35,8 +27,9 @@
 //                dishes.add(new Dish("Dish7",7000));
 //                dishes.add(new Dish("Dish8",8000));
 //                dishes.add(new Dish("Dish9",9000));
-                Restaurant restaurant = Restaurant.getRestaurant();
-                restaurant.setDishes(dishes);
+
+//                restaurant.setDishes(dishes);
+
                 for(Dish dish : dishes) {
                     out.print("<div class=\"dish\">\n" +
                             "       <form action=\"purchase\" method=\"post\">" +
@@ -53,7 +46,6 @@
                 }
             %>
         </div>
-        <jsp:include page="registration.jsp"/>
     </div>
 
 

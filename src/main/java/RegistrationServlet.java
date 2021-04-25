@@ -24,9 +24,7 @@ public class RegistrationServlet extends HttpServlet {
         double money = Double.parseDouble(req.getParameter("money"));
         PrintWriter out = resp.getWriter();
 
-        req.getRequestDispatcher("link.jsp").include(req, resp);
-
-        session.setAttribute("sname", name);
+//        session.setAttribute("sname", name);
 //        out.print("<a href='logIn'>HTTP Session</a><br>");
 //
 //        out.print("<a href='logIn?pname="+name+"'>URL Rewriting</a><br>");
@@ -37,13 +35,10 @@ public class RegistrationServlet extends HttpServlet {
 //        out.print("<input type='submit' value='go'>");
 //        out.print("</form>");
 
-        out.println("Name: " + name +"<br>");
-        out.println("Last Name: " + lastName+"<br>");
-        out.println("Password: "+password+"<br>");
-        out.println("Money: "+money);
-        out.close();
-
         User user = new User(name,lastName,password, money );
         Restaurant.getRestaurant().addUser(user);
+
+        req.getRequestDispatcher("link.jsp");
+        out.println("You are registered, " + name +"<br>");
     }
 }

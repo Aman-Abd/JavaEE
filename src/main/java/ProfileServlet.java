@@ -18,9 +18,6 @@ public class ProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter out=resp.getWriter();
-
-        req.getRequestDispatcher("link.jsp").include(req, resp);
-
         Cookie[] ck = req.getCookies();
 //        if(ck!=null){
 //            String name = ck[ck.length-1].getValue();
@@ -37,11 +34,7 @@ public class ProfileServlet extends HttpServlet {
             String name=(String)session.getAttribute("name");
             for(User user : Restaurant.getRestaurant().getUsers()) {
                 if (user.getName().equalsIgnoreCase(name)) {
-                    out.print("Welcome "+ user.getName() + " " + user.getLastname() + "<br>" +
-                            "" + user.getMoney() + "<br>");
-                    for (Dish userDishes : user.getDishes()){
-                        out.print(userDishes.getName() + "<br> ");
-                    }
+                    req.getRequestDispatcher("profile.jsp").include(req,resp);
                 }
             }
         }

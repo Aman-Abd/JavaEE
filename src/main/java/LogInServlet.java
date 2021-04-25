@@ -17,31 +17,31 @@ public class LogInServlet extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
 
-        req.getRequestDispatcher("link.jsp").include(req, resp);
+//        req.getRequestDispatcher("link.jsp").include(req, resp);
 
         String name = req.getParameter("name");
         String uname = req.getParameter("uname");
         String password = req.getParameter("password");
 
-//        if(uname!=null)
-//            out.print("Hello (Hidden Form)"+uname + "<br>");
+
         Restaurant restaurant = Restaurant.getRestaurant();
         for(User user : restaurant.getUsers()){
             if(user.getName().equalsIgnoreCase(name)){
                 if(password.equals(user.getPassword())){
-//                    out.print("You are successfully logged in!");
-//                    out.print("<br>Welcome, "+name);
 
                     Cookie ck=new Cookie("name", name);
                     resp.addCookie(ck);
 
                     HttpSession session=req.getSession();
                     session.setAttribute("name",name);
+
+                    req.getRequestDispatcher("profile.jsp").include(req,resp);
                 }else{
 //                    out.print("sorry, password error!");
-                    req.getRequestDispatcher("login.html").include(req, resp);
+                    req.getRequestDispatcher("login.jsp").include(req, resp);
                 }
             }else {
+                req.getRequestDispatcher("link.jsp").include(req, resp);
                 out.print("User not found");
             }
         }

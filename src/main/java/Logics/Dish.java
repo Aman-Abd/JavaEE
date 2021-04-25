@@ -6,13 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.ArrayList;
 @Entity
-@Table(name = "dish")
+//@Table(name = "dish")
 public class Dish {
     @Id
     private Long id;
-    @Column(name = "name")
+   // @Column(name = "name")
     private String name;
-    @Column(name ="price")
+    //@Column(name ="price")
     private double price;
 
     public Dish(String name, double price) {

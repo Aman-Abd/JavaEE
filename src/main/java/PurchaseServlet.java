@@ -23,8 +23,6 @@ public class PurchaseServlet extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out=resp.getWriter();
 
-        req.getRequestDispatcher("link.jsp").include(req, resp);
-
         String dishName = req.getParameter("dishName");
 
         Restaurant restaurant = Restaurant.getRestaurant();
@@ -38,10 +36,7 @@ public class PurchaseServlet extends HttpServlet {
                         if(user.getName().equalsIgnoreCase(name)){
                             user.setMoney(user.getMoney() - dish.getPrice());
                             user.getDishes().add(dish);
-                            out.println("You have " + user.getMoney() + "<br>");
-                            for (Dish userDishes : user.getDishes()){
-                                out.print(userDishes.getName() + "<br> ");
-                            }
+                            req.getRequestDispatcher("profile.jsp").include(req,resp);
                         }
                     }
                 }
@@ -49,7 +44,7 @@ public class PurchaseServlet extends HttpServlet {
         }
         else{
             out.print("Please login first");
-            req.getRequestDispatcher("login.html").include(req, resp);
+            req.getRequestDispatcher("login.jsp").include(req, resp);
         }
     }
 }

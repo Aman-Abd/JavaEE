@@ -52,7 +52,7 @@ public class Restaurant {
     }
 
     public List<Dish> getDishes() {
-        return jdbcTemplate.query("SELECT * FROM Dish", new DishMaper());
+        return dishes;
     }
 
     public void setDishes(List<Dish> dishes) {
